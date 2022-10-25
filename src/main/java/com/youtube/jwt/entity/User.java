@@ -16,16 +16,27 @@ import java.util.Set;
 public class User {
 
     @Id
+
     private String userName;
     private String userFirstName;
     private String userLastName;
     private String userPassword;
-
-    private String name;
     private String email;
     private char Sexo;
     private int Telefone;
     private String Data_nascimento;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="user_images",
+            joinColumns = {
+            @JoinColumn(name="USER_ID")
+    },
+    inverseJoinColumns = {
+            @JoinColumn(name="image_id")
+    })
+    private Set<ImageModel>userImages;
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE",
             joinColumns = {
